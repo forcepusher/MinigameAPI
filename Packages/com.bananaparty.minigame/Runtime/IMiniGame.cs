@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace BananaParty.MiniGame
 {
     public interface IMiniGame
