@@ -1,0 +1,17 @@
+{
+  "name": "com.bananaparty.minigame",
+  "version": "1.0.0",
+  "type": "library",
+  "displayName": "Mini-Game Intergation",
+  "unity": "2022.3",
+  "description": "Mini-Game Intergation library",
+  "license": "MIT",
+  "samples": [
+    {
+      "displayName": "Mini Game Sample",
+      "description": "Contains sample for testing integration",
+      "path": "Samples~/MiniGameSample"
+    }
+  ],
+  "author": "github.com/forcepusher"
+}
