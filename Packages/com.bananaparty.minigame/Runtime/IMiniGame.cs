@@ -1,17 +1,13 @@
-namespace BananaParty.MiniGame.Sample
+namespace BananaParty.MiniGame
 {
     public interface IMiniGame
     {
-        public void StartMiniGame()
-        {
+        public AsyncOperation StartMiniGame();
 
-        }
+        public AsyncOperation AbortMiniGame();
 
-        public void AbortMiniGame()
-        {
+        public bool IsMiniGameFinished { get; }
 
-        }
-
-        
+        public int Score { get; }
     }
 }
