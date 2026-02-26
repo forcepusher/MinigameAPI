@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BananaParty.MiniGame.Sample
+namespace BananaParty.Minigame.Sample
 {
     public class MainGame : MonoBehaviour
     {
