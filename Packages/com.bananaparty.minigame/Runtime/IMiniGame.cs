@@ -10,6 +10,6 @@ namespace BananaParty.Minigame
 
         public bool IsMinigameFinished { get; }
 
-        public TPlayResult PlayResult { get; }
+        public TPlayResult MinigamePlayResult { get; }
     }
 }
