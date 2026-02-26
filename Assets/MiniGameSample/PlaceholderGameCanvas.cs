@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BananaParty.Minigame.Sample
 {
-    public class MainGame : MonoBehaviour
+    public class PlaceholderGameCanvas : MonoBehaviour
     {
         public void OnStartGameButtonClick()
         {
