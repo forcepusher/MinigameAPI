@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BananaParty.MiniGame
+namespace BananaParty.Minigame
 {
     public interface IMinigame<TResult>
     {
