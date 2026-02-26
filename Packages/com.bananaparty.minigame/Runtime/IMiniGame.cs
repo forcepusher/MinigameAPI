@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BananaParty.MiniGame
 {
-    public interface IMiniGame
+    public interface IMinigame<TResult>
     {
         public AsyncOperation StartMiniGame();
 
@@ -10,6 +10,6 @@ namespace BananaParty.MiniGame
 
         public bool IsMiniGameFinished { get; }
 
-        public int Score { get; }
+        public TResult Result { get; }
     }
 }
