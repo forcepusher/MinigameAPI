@@ -1,16 +1,36 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BananaParty.Minigame.Sample
 {
     public class ClickerMinigame : MonoBehaviour, IMinigame<int>
     {
-        public bool IsMinigameFinished => throw new System.NotImplementedException();
+        private const string SceneName = "ClickerMinigameScene";
+        private const int ClicksToWin = 5;
 
-        public int MinigamePlayResult => throw new System.NotImplementedException();
+        private int _clickCount = 0;
+        private bool _isGameFinished = false;
 
-        public AsyncOperation AbortMinigame() => throw new System.NotImplementedException();
-        public AsyncOperation StartMinigame() => throw new System.NotImplementedException();
+        public bool IsMinigameFinished => _isGameFinished;
 
-        
+        public int MinigamePlayResult => _clickCount;
+
+        public AsyncOperation EndMinigame()
+        {
+            return SceneManager.UnloadSceneAsync(SceneName);
+        }
+
+        public AsyncOperation StartMinigame()
+        {
+            return SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
+        }
+
+        public void OnClickerButtonClick()
+        {
+            _clickCount += 1;
+
+            if (_clickCount >= ClicksToWin)
+                _isGameFinished = true;
+        }
     }
 }

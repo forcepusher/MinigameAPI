@@ -6,7 +6,7 @@ namespace BananaParty.Minigame
     {
         public AsyncOperation StartMinigame();
 
-        public AsyncOperation AbortMinigame();
+        public AsyncOperation EndMinigame();
 
         public bool IsMinigameFinished { get; }
 

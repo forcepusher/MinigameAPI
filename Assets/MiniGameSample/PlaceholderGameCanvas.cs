@@ -9,7 +9,7 @@ namespace BananaParty.Minigame.Sample
 
         }
 
-        public void OnAbortGameButtonClick()
+        public void OnEndGameButtonClick()
         {
 
         }
