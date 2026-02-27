@@ -672,8 +672,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1552723857}
-        m_TargetAssemblyTypeName: BananaParty.MiniGame.Sample.MainGame, Assembly-CSharp
-        m_MethodName: OnAbortGameButtonClick
+        m_TargetAssemblyTypeName: BananaParty.Minigame.Sample.PlaceholderGameCanvas,
+          Assembly-CSharp
+        m_MethodName: OnEndGameButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
