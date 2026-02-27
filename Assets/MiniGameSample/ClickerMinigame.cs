@@ -10,12 +10,9 @@ namespace BananaParty.Minigame.Sample
 
         private ClickerMinigameCanvas _clickerMinigameCanvas;
 
-        private int _clickCount = 0;
-        private bool _isGameFinished = false;
+        public bool IsMinigameFinished => _clickerMinigameCanvas ? _clickerMinigameCanvas.IsGameFinished : false;
 
-        public bool IsMinigameFinished => _clickerMinigameCanvas ? _isGameFinished : false;
-
-        public int MinigamePlayResult => _clickerMinigameCanvas ? _clickCount : 0;
+        public int MinigamePlayResult => _clickerMinigameCanvas ? _clickerMinigameCanvas.ClickCount : 0;
 
         public AsyncOperation EndMinigame()
         {
@@ -25,11 +22,11 @@ namespace BananaParty.Minigame.Sample
         public AsyncOperation StartMinigame()
         {
             AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
-            GatherSceneReferences(loadingOperation);
+            GatherSceneReferencesAfterLoad(loadingOperation);
             return loadingOperation;
         }
 
-        private async void GatherSceneReferences(AsyncOperation loadingOperation)
+        private async void GatherSceneReferencesAfterLoad(AsyncOperation loadingOperation)
         {
             while (!loadingOperation.isDone)
                 await Task.Yield();

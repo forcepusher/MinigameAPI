@@ -6,15 +6,15 @@ namespace BananaParty.Minigame.Sample
     {
         private const int ClicksToWin = 5;
 
-        private int _clickCount = 0;
-        private bool _isGameFinished = false;
+        public int ClickCount { get; private set; } = 0;
+        public bool IsGameFinished { get; private set; } = false;
 
         public void OnClickerButtonClick()
         {
-            _clickCount += 1;
+            ClickCount += 1;
 
-            if (_clickCount >= ClicksToWin)
-                _isGameFinished = true;
+            if (ClickCount >= ClicksToWin)
+                IsGameFinished = true;
         }
     }
 }
