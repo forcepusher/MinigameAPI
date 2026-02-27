@@ -19,7 +19,7 @@ namespace BananaParty.Minigame.Sample
             return SceneManager.UnloadSceneAsync(SceneName);
         }
 
-        public AsyncOperation StartMinigame()
+        public AsyncOperation StartMinigame(Camera mainSceneCamera)
         {
             AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
             GatherSceneReferencesAfterLoad(loadingOperation);

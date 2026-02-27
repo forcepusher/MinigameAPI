@@ -4,7 +4,7 @@ namespace BananaParty.Minigame
 {
     public interface IMinigame<TPlayResult>
     {
-        public AsyncOperation StartMinigame();
+        public AsyncOperation StartMinigame(Camera mainSceneCamera);
 
         public AsyncOperation EndMinigame();
 
