@@ -7,14 +7,15 @@ namespace BananaParty.Minigame.Sample
     public class ClickerMinigame : IMinigame<int>
     {
         private const string SceneName = "ClickerMinigameScene";
-        private const int ClicksToWin = 5;
+
+        private ClickerMinigameCanvas _clickerMinigameCanvas;
 
         private int _clickCount = 0;
         private bool _isGameFinished = false;
 
-        public bool IsMinigameFinished => _isGameFinished;
+        public bool IsMinigameFinished => _clickerMinigameCanvas ? _isGameFinished : false;
 
-        public int MinigamePlayResult => _clickCount;
+        public int MinigamePlayResult => _clickerMinigameCanvas ? _clickCount : 0;
 
         public AsyncOperation EndMinigame()
         {
@@ -30,10 +31,10 @@ namespace BananaParty.Minigame.Sample
 
         private async void GatherSceneReferences(AsyncOperation loadingOperation)
         {
-            while (_isGameFinished)
-            {
+            while (!loadingOperation.isDone)
                 await Task.Yield();
-            }
+
+            _clickerMinigameCanvas = Object.FindAnyObjectByType<ClickerMinigameCanvas>();
         }
     }
 }
