@@ -1,9 +1,10 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace BananaParty.Minigame.Sample
 {
-    public class ClickerMinigame : MonoBehaviour, IMinigame<int>
+    public class ClickerMinigame : IMinigame<int>
     {
         private const string SceneName = "ClickerMinigameScene";
         private const int ClicksToWin = 5;
@@ -22,15 +23,17 @@ namespace BananaParty.Minigame.Sample
 
         public AsyncOperation StartMinigame()
         {
-            return SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
+            AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
+            GatherSceneReferences(loadingOperation);
+            return loadingOperation;
         }
 
-        public void OnClickerButtonClick()
+        private async void GatherSceneReferences(AsyncOperation loadingOperation)
         {
-            _clickCount += 1;
-
-            if (_clickCount >= ClicksToWin)
-                _isGameFinished = true;
+            while (_isGameFinished)
+            {
+                await Task.Yield();
+            }
         }
     }
 }

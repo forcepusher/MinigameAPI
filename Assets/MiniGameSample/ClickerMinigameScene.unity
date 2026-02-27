@@ -378,7 +378,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1936488169}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BananaParty.Minigame.Sample.ClickerMinigame, Assembly-CSharp
         m_MethodName: OnClickerButtonClick
         m_Mode: 1
@@ -700,9 +700,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1936488164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3da02a35b9ea82b4eb85a23aad9870b2, type: 3}
+  m_Script: {fileID: 11500000, guid: c6b9bff8e05cb2c48ab2b05d47a78ecd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BananaParty.Minigame.Sample.ClickerMinigame
+  m_EditorClassIdentifier: Assembly-CSharp::BananaParty.Minigame.Sample.ClickerMinigameCanvas
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
