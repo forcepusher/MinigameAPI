@@ -4,8 +4,7 @@ Shader "Custom/StandardOverrideAmbient" {
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
-        [Toggle] _UseAdditiveAmbient ("Use Additive Ambient", Float) = 0
-        _AdditiveAmbient ("Additive Ambient Color", Color) = (0.2,0.2,0.2,1)
+        _AmbientColor ("Ambient Color", Color) = (0.2,0.2,0.2,1)
     }
     SubShader {
         Tags { "RenderType"="Opaque" }
@@ -14,7 +13,6 @@ Shader "Custom/StandardOverrideAmbient" {
         CGPROGRAM
         #pragma surface surf CustomAmbient fullforwardshadows
         #pragma target 3.0
-        #pragma shader_feature _USEADDITIVEAMBIENT_ON
 
         #include "UnityPBSLighting.cginc"
         #include "Lighting.cginc"
@@ -24,18 +22,16 @@ Shader "Custom/StandardOverrideAmbient" {
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
-        fixed4 _AdditiveAmbient;
+        fixed4 _AmbientColor;
 
         struct Input {
             float2 uv_MainTex;
         };
 
-        // GI: run once per pixel; when custom ambient is on, replace scene ambient with _AdditiveAmbient.
+        // GI: run once per pixel; replace scene ambient with _AmbientColor.
         inline void LightingCustomAmbient_GI(SurfaceOutputStandard s, UnityGIInput data, inout UnityGI gi) {
             LightingStandard_GI(s, data, gi);
-            #ifdef _USEADDITIVEAMBIENT_ON
-                gi.indirect.diffuse = _AdditiveAmbient.rgb;
-            #endif
+            gi.indirect.diffuse = _AmbientColor.rgb;
         }
 
         // Single lighting entry point: direct + indirect. Ambient is in gi.indirect (set once in _GI).
