@@ -44,7 +44,23 @@ public class StandardWithOverridesGUI : ShaderGUI
     {
         EnsureInnerGui();
 
-        // Let the real Standard shader inspector draw everything it knows about
+        // Our extra ambient property FIRST, so it appears at the top
+        _ambientColor = FindProperty("_AmbientColor", props, false);
+
+        if (_ambientColor != null)
+        {
+            _showAmbientSection = EditorGUILayout.Foldout(_showAmbientSection, "Ambient Override", true);
+            if (_showAmbientSection)
+            {
+                EditorGUI.indentLevel++;
+                materialEditor.ColorProperty(_ambientColor, "Ambient Color");
+                EditorGUI.indentLevel--;
+            }
+
+            EditorGUILayout.Space();
+        }
+
+        // Then let the real Standard shader inspector draw everything it knows about
         if (_innerStandardGui != null && _innerOnGUI != null)
         {
             if (_innerFindProperties != null)
@@ -56,21 +72,6 @@ public class StandardWithOverridesGUI : ShaderGUI
         {
             // Fallback: default material inspector
             base.OnGUI(materialEditor, props);
-        }
-
-        // Our extra ambient property
-        _ambientColor = FindProperty("_AmbientColor", props, false);
-
-        if (_ambientColor != null)
-        {
-            EditorGUILayout.Space();
-            _showAmbientSection = EditorGUILayout.Foldout(_showAmbientSection, "Ambient Override", true);
-            if (_showAmbientSection)
-            {
-                EditorGUI.indentLevel++;
-                materialEditor.ColorProperty(_ambientColor, "Ambient Color");
-                EditorGUI.indentLevel--;
-            }
         }
     }
 }
