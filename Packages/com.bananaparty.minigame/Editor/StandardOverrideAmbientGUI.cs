@@ -1,28 +1,76 @@
+using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-// Custom inspector for the StandardOverrideAmbient shader.
-// Extends Unity's built-in StandardShaderGUI and adds an Ambient Color field.
-public class StandardOverrideAmbientGUI : UnityEditor.StandardShaderGUI
+// Wrapper around Unity's internal StandardShaderGUI that adds an Ambient Color field.
+// Uses reflection so we keep the exact same UI/behavior as Standard plus our extra control.
+public class StandardOverrideAmbientGUI : ShaderGUI
 {
+    private static bool _showAmbientSection = true;
     private MaterialProperty _ambientColor;
 
-    public override void FindProperties(MaterialProperty[] props)
+    // Reflected StandardShaderGUI instance + methods
+    private object _innerStandardGui;
+    private MethodInfo _innerFindProperties;
+    private MethodInfo _innerOnGUI;
+
+    private void EnsureInnerGui()
     {
-        base.FindProperties(props);
-        _ambientColor = FindProperty("_AmbientColor", props, false);
+        if (_innerStandardGui != null)
+            return;
+
+        // Type name used by Unity's built-in Standard inspector
+        var editorAssembly = typeof(MaterialEditor).Assembly;
+        var standardGuiType = editorAssembly.GetType("UnityEditor.StandardShaderGUI");
+        if (standardGuiType == null)
+            return; // Fallback: we'll just use default ShaderGUI
+
+        _innerStandardGui = Activator.CreateInstance(standardGuiType);
+        _innerFindProperties = standardGuiType.GetMethod(
+            "FindProperties",
+            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+        );
+        _innerOnGUI = standardGuiType.GetMethod(
+            "OnGUI",
+            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+            null,
+            new[] { typeof(MaterialEditor), typeof(MaterialProperty[]) },
+            null
+        );
     }
 
     public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
     {
-        // Draw the default Standard shader UI.
-        base.OnGUI(materialEditor, props);
+        EnsureInnerGui();
+
+        // Let the real Standard shader inspector draw everything it knows about
+        if (_innerStandardGui != null && _innerOnGUI != null)
+        {
+            if (_innerFindProperties != null)
+                _innerFindProperties.Invoke(_innerStandardGui, new object[] { props });
+
+            _innerOnGUI.Invoke(_innerStandardGui, new object[] { materialEditor, props });
+        }
+        else
+        {
+            // Fallback: default material inspector
+            base.OnGUI(materialEditor, props);
+        }
+
+        // Our extra ambient property
+        _ambientColor = FindProperty("_AmbientColor", props, false);
 
         if (_ambientColor != null)
         {
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Ambient Override", EditorStyles.boldLabel);
-            materialEditor.ColorProperty(_ambientColor, "Ambient Color");
+            _showAmbientSection = EditorGUILayout.Foldout(_showAmbientSection, "Ambient Override", true);
+            if (_showAmbientSection)
+            {
+                EditorGUI.indentLevel++;
+                materialEditor.ColorProperty(_ambientColor, "Ambient Color");
+                EditorGUI.indentLevel--;
+            }
         }
     }
 }
