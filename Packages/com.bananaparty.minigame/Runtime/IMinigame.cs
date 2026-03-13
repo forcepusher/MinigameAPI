@@ -4,6 +4,14 @@ namespace BananaParty.Minigame
 {
     public interface IMinigame<TPlayResult>
     {
+        public AsyncOperation StartMinigame();
+
+        public bool IsMinigameFinished { get; }
+
+        public AsyncOperation EndMinigame();
+
+        public TPlayResult MinigamePlayResult { get; }
+
         /// <summary>
         /// Use this layer as your default minigame layer to avoid conflicts with the main game scene.<br/>
         /// Light settings Culling Mask must be enabled only for <see cref="MainMinigameLayer"/> and <see cref="AdditionalMinigameLayer"/> exclusively.
@@ -19,16 +27,11 @@ namespace BananaParty.Minigame
         /// Change the minigame language. Set it before starting the game.
         /// </summary>
         /// <param name="languageCode">ISO 639 Set 1 language code (e.g. "en", "ru", "tr")</param>
-        public void SetLanguage(string languageCode);
+        public void SetLanguage(string languageCode) {}
 
-        public void SetSoundVolume(float volume);
-
-        public AsyncOperation StartMinigame();
-
-        public AsyncOperation EndMinigame();
-
-        public bool IsMinigameFinished { get; }
-
-        public TPlayResult MinigamePlayResult { get; }
+        /// <summary>
+        /// Sets master volume of the entire minigame.
+        /// </summary>
+        public void SetSoundVolume(float volume) {}
     }
 }
