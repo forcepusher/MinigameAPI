@@ -83,9 +83,6 @@ Shader "Custom/StandardOverrideAmbient" {
         fixed4 _EmissionColor;
         fixed4 _AmbientColor;
 
-        float4 _MainTex_ST;
-        float4 _DetailAlbedoMap_ST;
-
         struct Input {
             float2 uv_MainTex;
             float2 uv_DetailAlbedoMap;
@@ -191,9 +188,6 @@ Shader "Custom/StandardOverrideAmbient" {
         fixed4 _Color;
         fixed4 _EmissionColor;
         fixed4 _AmbientColor;
-
-        float4 _MainTex_ST;
-        float4 _DetailAlbedoMap_ST;
 
         struct Input {
             float2 uv_MainTex;
