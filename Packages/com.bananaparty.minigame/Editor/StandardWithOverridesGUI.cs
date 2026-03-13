@@ -5,7 +5,7 @@ using UnityEngine;
 
 // Wrapper around Unity's internal StandardShaderGUI that adds an Ambient Color field.
 // Uses reflection so we keep the exact same UI/behavior as Standard plus our extra control.
-public class StandardOverrideAmbientGUI : ShaderGUI
+public class StandardWithOverridesGUI : ShaderGUI
 {
     private static bool _showAmbientSection = true;
     private MaterialProperty _ambientColor;
