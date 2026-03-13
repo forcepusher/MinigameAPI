@@ -244,5 +244,5 @@ Shader "Custom/StandardOverrideAmbient" {
     }
 
     FallBack "Standard"
-    CustomEditor "StandardShaderGUI"
+    CustomEditor "StandardOverrideAmbientGUI"
 }
