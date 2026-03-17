@@ -19,6 +19,14 @@ namespace BananaParty.Minigame.Sample
 
         public AsyncOperation StartMinigame()
         {
+            AsyncOperation startAsyncOperation = new();
+            StartMiniGameAsync(startAsyncOperation);
+            return startAsyncOperation;
+        }
+
+        private async void StartMiniGameAsync(AsyncOperation startAsyncOperation)
+        {
+            
             AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
             GatherSceneReferencesAfterLoad(loadingOperation);
             return loadingOperation;
