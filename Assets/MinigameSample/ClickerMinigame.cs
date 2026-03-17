@@ -31,12 +31,12 @@ namespace BananaParty.Minigame.Sample
             
             while (!loadingOperation.isDone)
                 await Task.Yield();
-            
-            _minigameScene = SceneManager.GetSceneByName(SceneName);
-
+        
             // Custom startup code should be here if needed
             _clickerMinigameCanvas = Object.FindAnyObjectByType<ClickerMinigameCanvas>();
             //
+
+            _minigameScene = SceneManager.GetSceneByName(SceneName);
 
             SetSoundVolume(_volume);
             SetLanguage(_languageCode);
